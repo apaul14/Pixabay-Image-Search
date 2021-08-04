@@ -1,15 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler'
+import React from 'react'
+import { StyleSheet, Text, SafeAreaView } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack';
+//import { StatusBar } from 'expo-status-bar'
 
-export default function App() {
+import { ImageProvider } from './context'
+
+import  Main  from './components/Main'
+import SingleImageView from './components/SingleImageView'
+
+const Stack = createStackNavigator()
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <ImageProvider>
+      <NavigationContainer >
+        <Stack.Navigator initialRouteName='Main'>
+            <Stack.Screen name='Select An Image' component={Main} />
+            <Stack.Screen name='Image Details' component={SingleImageView} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ImageProvider>
+  )
 }
+{/* <SafeAreaView style={styles.container}>
+  <Text>Select an image to learn more</Text>
+  <StatusBar style="auto" />
+  <Main/>
+</SafeAreaView> */}
 
 const styles = StyleSheet.create({
   container: {
@@ -18,4 +37,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
+
+export default App
